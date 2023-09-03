@@ -18,4 +18,3 @@ export default class SampleSettingTab extends PluginSettingTab {
 		containerEl.empty();
 	}
 }
-
