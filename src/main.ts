@@ -51,7 +51,6 @@ export default class Weaver extends Plugin {
 			const editorView = editor.cm as EditorView;
 			const editorPlugin = editorView.plugin(weaverEditor);
 			editorPlugin?.addPlugin(this);
-			editorPlugin?.update();
 		}
 	}
 
