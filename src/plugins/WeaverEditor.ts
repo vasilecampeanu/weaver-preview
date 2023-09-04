@@ -1,6 +1,6 @@
+import Weaver from "main";
 import { PluginValue, EditorView, ViewPlugin } from "@codemirror/view";
 import { eventEmitter } from "utils/EventEmitter";
-import Weaver from "main";
 
 class WeaverEditor implements PluginValue {
 	private plugin: Weaver;
