@@ -5,7 +5,7 @@ import { WeaverSettings } from "interfaces/WeaverSettings";
 
 export const DEFAULT_SETTINGS: WeaverSettings = {}
 
-export default class SampleSettingTab extends PluginSettingTab {
+export class SampleSettingTab extends PluginSettingTab {
 	private readonly plugin: Weaver;
 
 	constructor(app: App, plugin: Weaver) {

@@ -1,42 +1,29 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, WorkspaceLeaf } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, WorkspaceLeaf } from "obsidian";
 import { EditorView } from "@codemirror/view";
 
-import { WeaverSettings } from 'interfaces/WeaverSettings';
-import SampleSettingTab, { DEFAULT_SETTINGS } from 'settings';
-import { weaverEditor } from 'plugins/WeaverEditor';
+import { WeaverSettings } from "interfaces/WeaverSettings";
+import { SampleSettingTab, DEFAULT_SETTINGS } from "settings";
+import { weaverEditor } from "plugins/WeaverEditor";
 
 export default class Weaver extends Plugin {
 	public settings: WeaverSettings;
 
 	async onload() {
-		// Loading message
 		await this.messageOnLoad();
-
-		// Settings
 		await this.loadSettings();
-
-		// Register Extensions
 		this.registerEditorExtension(weaverEditor);
-
-		// Listeners
 		await this.registerEventListeners();
-
-		// Bind plugin components
 		this.app.workspace.onLayoutReady(this.onLayoutReady.bind(this));
 	}
 
 	async messageOnLoad() {
-		console.log('obsidian-weaver loading...');
+		console.log("obsidian-weaver loading...");
 	}
 
 	async onunload() { }
 
 	async loadSettings() {
-		this.settings = Object.assign(
-			{},
-			DEFAULT_SETTINGS,
-			await this.loadData()
-		);
+		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
 	}
 
 	async saveSettings() {
@@ -51,6 +38,7 @@ export default class Weaver extends Plugin {
 			const editorView = editor.cm as EditorView;
 			const editorPlugin = editorView.plugin(weaverEditor);
 			editorPlugin?.addPlugin(this);
+			editorPlugin?.update();
 		}
 	}
 
@@ -60,12 +48,9 @@ export default class Weaver extends Plugin {
 
 	private async registerEventListeners(): Promise<void> {
 		this.registerEvent(
-			this.app.workspace.on(
-				"active-leaf-change",
-				async (leaf: WorkspaceLeaf) => {
-					this.getSelection(leaf);
-				}
-			)
+			this.app.workspace.on("active-leaf-change", async (leaf: WorkspaceLeaf) => {
+				this.getSelection(leaf);
+			})
 		);
 	}
 }
