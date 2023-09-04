@@ -9,9 +9,19 @@ class WeaverEditor implements PluginValue {
 
 	constructor(view: EditorView) {
 		this.view = view;
+		this.userSelectionEvent = this.debounce(this.userSelectionEvent.bind(this), 300);
 	}
 
 	update(): void {
+		this.userSelectionEvent();
+	}
+
+	addPlugin(plugin: Weaver) {
+		this.plugin = plugin;
+		this.update();
+	}
+
+	userSelectionEvent(): void {
 		const { state } = this.view;
 		const { from, to } = state.selection.main;
 
@@ -19,16 +29,26 @@ class WeaverEditor implements PluginValue {
 			if (from !== to) {
 				const selectedText = state.doc.sliceString(from, to);
 				eventEmitter.emit("textSelected", selectedText);
-				console.log("Selected Text:", selectedText);
+				console.log("Selected text:", selectedText);
 			}
 
 			this.lastSelection = { from, to };
 		}
 	}
 
-	addPlugin(plugin: Weaver) {
-		this.plugin = plugin;
-		this.update();
+	debounce(fn: Function, delay: number) {
+		let timer: any = null;
+		return function (...args: any[]) {
+			const context = this;
+
+			if (timer) {
+				clearTimeout(timer);
+			}
+
+			timer = setTimeout(() => {
+				fn.apply(context, args);
+			}, delay);
+		};
 	}
 }
 
