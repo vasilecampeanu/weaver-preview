@@ -1,6 +1,6 @@
-import Weaver from "main";
-import { PluginValue, EditorView, ViewPlugin } from "@codemirror/view";
-import { eventEmitter } from "utils/EventEmitter";
+import Weaver from 'main';
+import { PluginValue, EditorView, ViewPlugin } from '@codemirror/view';
+import { eventEmitter } from 'utils/EventEmitter';
 
 class WeaverEditor implements PluginValue {
 	private plugin: Weaver;
@@ -28,8 +28,8 @@ class WeaverEditor implements PluginValue {
 		if (!this.lastSelection || this.lastSelection.from !== from || this.lastSelection.to !== to) {
 			if (from !== to) {
 				const selectedText = state.doc.sliceString(from, to);
-				eventEmitter.emit("textSelected", selectedText);
-				console.log("Selected text:", selectedText);
+				eventEmitter.emit('textSelected', selectedText);
+				console.log('Selected text:', selectedText);
 			}
 
 			this.lastSelection = { from, to };

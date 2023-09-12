@@ -1,9 +1,9 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, WorkspaceLeaf, addIcon } from "obsidian";
-import { EditorView } from "@codemirror/view";
-import { WeaverSettings } from "interfaces/WeaverSettings";
-import { SampleSettingTab, DEFAULT_SETTINGS } from "settings";
-import { weaverEditor } from "plugins/WeaverEditor";
-import { WeaverThreadView } from "views/WeaverThreadView";
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, WorkspaceLeaf, addIcon } from 'obsidian';
+import { EditorView } from '@codemirror/view';
+import { WeaverSettings } from 'interfaces/WeaverSettings';
+import { SampleSettingTab, DEFAULT_SETTINGS } from 'settings';
+import { weaverEditor } from 'plugins/WeaverEditor';
+import { WeaverThreadView } from 'views/WeaverThreadView';
 
 export default class Weaver extends Plugin {
 	public settings: WeaverSettings;
@@ -19,7 +19,7 @@ export default class Weaver extends Plugin {
 	}
 
 	async messageOnLoad() {
-		console.log("obsidian-weaver loading...");
+		console.log('obsidian-weaver loading...');
 	}
 
 	async onunload() {
@@ -51,7 +51,7 @@ export default class Weaver extends Plugin {
 
 	private async registerEventListeners(): Promise<void> {
 		this.registerEvent(
-			this.app.workspace.on("active-leaf-change", async (leaf: WorkspaceLeaf) => {
+			this.app.workspace.on('active-leaf-change', async (leaf: WorkspaceLeaf) => {
 				this.getSelection(leaf);
 			})
 		);

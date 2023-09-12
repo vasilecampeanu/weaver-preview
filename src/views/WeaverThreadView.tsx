@@ -1,3 +1,4 @@
+import { Chat } from 'components/chat/Chat';
 import Weaver from 'main';
 import { ItemView, WorkspaceLeaf } from 'obsidian';
 import React from 'react';
@@ -47,21 +48,21 @@ export class WeaverThreadView extends ItemView {
 		this.destroy();
 
 		const viewContent = this.containerEl.querySelector(
-			".view-content"
+			'.view-content'
 		) as HTMLElement;
 
 		if (viewContent) {
-			viewContent.classList.add("ow-weaver-thread-view-content");
+			viewContent.classList.add('ow-thread');
 			this.appendWeaver(viewContent);
 		} else {
-			console.error("Could not find view content!");
+			console.error('Could not find view content!');
 		}
 	}
 
 	private appendWeaver(viewContent: HTMLElement) {
 		this.root = createRoot(viewContent);
 		this.root.render(
-			<></>
+			<Chat plugin={this.plugin} />
 		);
 	}
 }

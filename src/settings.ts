@@ -1,7 +1,7 @@
-import { App, PluginSettingTab } from "obsidian";
-import Weaver from "main";
+import { App, PluginSettingTab } from 'obsidian';
+import Weaver from 'main';
 
-import { WeaverSettings } from "interfaces/WeaverSettings";
+import { WeaverSettings } from 'interfaces/WeaverSettings';
 
 export const DEFAULT_SETTINGS: WeaverSettings = {}
 
