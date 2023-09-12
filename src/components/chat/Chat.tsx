@@ -26,28 +26,43 @@ interface ExpandableInputProps {
 const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightControls }) => {
     const borderRadiusControls = useAnimation();
 
+    const [showCount, setShowCount] = useState(false);
+    const isHovering = useRef(false);
+
     return (
         <motion.div
             initial={{ width: `calc(100% - 10px - ${leftDivWidth}px)`, borderRadius: '20px' }}
             animate={borderRadiusControls}
             whileHover={{ width: '100%' }}
             onHoverStart={() => {
+                isHovering.current = true;
                 borderRadiusControls.start({ borderRadius: '10px' });
                 heightControls.start({ height: '100px' });
             }}
             onHoverEnd={() => {
+                isHovering.current = false;
                 borderRadiusControls.start({ borderRadius: '20px' });
                 heightControls.start({ height: 'auto' });
+                setShowCount(false);
+            }}
+            onAnimationComplete={() => {
+                if (isHovering.current) {
+                    setShowCount(true);
+                }
             }}
             transition={{ duration: 0.3 }}
             className="ow-expandable-input"
         >
             <div className="ow-expandable-input-inner-wrapper">
-                <textarea placeholder="Ask me anything..." />
+                <div className="ow-textarea-wrapper">
+                    <textarea placeholder="Ask me anything..." />
+                    {showCount && <div className="ow-chracters-count">0/2000</div>}
+                </div>
             </div>
         </motion.div>
     );
 };
+
 
 export const InputWrapper: React.FC = () => {
     const [leftDivWidth, setLeftDivWidth] = useState<number | null>(null);
