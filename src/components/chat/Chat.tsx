@@ -24,10 +24,12 @@ interface ExpandableInputProps {
 }
 
 const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightControls }) => {
-    const borderRadiusControls = useAnimation();
-
     const [showCount, setShowCount] = useState(false);
-    const isHovering = useRef(false);
+	
+    const borderRadiusControls = useAnimation();
+    
+	const isHovering = useRef(false);
+	const isFocused = useRef(false);
 
     return (
         <motion.div
@@ -41,9 +43,11 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
             }}
             onHoverEnd={() => {
                 isHovering.current = false;
-                borderRadiusControls.start({ borderRadius: '20px' });
-                heightControls.start({ height: 'auto' });
-                setShowCount(false);
+                if (!isFocused.current) {
+                    borderRadiusControls.start({ borderRadius: '20px' });
+                    heightControls.start({ height: 'auto' });
+                    setShowCount(false);
+                }
             }}
             onAnimationComplete={() => {
                 if (isHovering.current) {
@@ -55,7 +59,18 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
         >
             <div className="ow-expandable-input-inner-wrapper">
                 <div className="ow-textarea-wrapper">
-                    <textarea placeholder="Ask me anything..." />
+                    <textarea 
+                        placeholder="Ask me anything..."
+                        onFocus={() => isFocused.current = true}
+                        onBlur={() => {
+                            isFocused.current = false;
+                            if (!isHovering.current) {
+                                borderRadiusControls.start({ borderRadius: '20px' });
+                                heightControls.start({ height: 'auto' });
+                                setShowCount(false);
+                            }
+                        }}
+                    />
                     {showCount && <div className="ow-chracters-count">0/2000</div>}
                 </div>
             </div>
