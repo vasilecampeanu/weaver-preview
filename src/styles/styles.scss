@@ -117,13 +117,13 @@
 										all: unset;
 										cursor: var(--cursor);
 										display: grid;
-					
+										
 										svg
 										{
 											place-self: center;
 											width: 18px;
 											height: 18px;
-											color: var(--icon-color);
+											color: var(--interactive-accent);
 											opacity: .5;
 										}
 					

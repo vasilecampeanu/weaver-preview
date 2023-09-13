@@ -27,6 +27,7 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 	const [showCount, setShowCount] = useState(false);
 	const [charCount, setCharCount] = useState(0);
 	const [textValue, setTextValue] = useState('');
+	const [isPinned, setIsPinned] = useState(false);
 
 	const borderRadiusControls = useAnimation();
 
@@ -46,19 +47,21 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 
 	return (
 		<motion.div
-			initial={{ width: `calc(100% - 10px - ${leftDivWidth}px)`, borderRadius: '20px' }}
+			initial={{ width: `calc(100% - 10px - ${leftDivWidth}px)`, borderRadius: "20px" }}
 			animate={borderRadiusControls}
 			whileHover={{ width: '100%' }}
 			onHoverStart={() => {
-				isHovering.current = true;
-				borderRadiusControls.start({ borderRadius: '10px' });
-				heightControls.start({ height: '150px' });
+				if (!isPinned) {
+					isHovering.current = true;
+					borderRadiusControls.start({ borderRadius: "10px" });
+					heightControls.start({ height: "150px" });
+				}
 			}}
 			onHoverEnd={() => {
 				isHovering.current = false;
-				if (!isFocused.current) {
-					borderRadiusControls.start({ borderRadius: '20px' });
-					heightControls.start({ height: 'auto' });
+				if (!isFocused.current && !isPinned) {
+					borderRadiusControls.start({ borderRadius: "20px" });
+					heightControls.start({ height: "auto" });
 					setShowCount(false);
 				}
 			}}
@@ -77,13 +80,14 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 							placeholder="Ask me anything..."
 							value={textValue}
 							onChange={handleTextChange}
-							onFocus={() => isFocused.current = true}
+							onFocus={() => {
+								isFocused.current = true;
+							}}
 							onBlur={() => {
 								isFocused.current = false;
-
-								if (!isHovering.current) {
-									borderRadiusControls.start({ borderRadius: '20px' });
-									heightControls.start({ height: 'auto' });
+								if (!isHovering.current && !isPinned) {
+									borderRadiusControls.start({ borderRadius: "20px" });
+									heightControls.start({ height: "auto" });
 									setShowCount(false);
 								}
 							}}
@@ -112,7 +116,15 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 							</div>
 							<div className="ow-pin-input-btn">
 								<button
-									className="ow-pin-input-btn"
+									className={`ow-pin-input-btn ${isPinned ? 'pinned' : ''}`}
+									onClick={() => {
+										setIsPinned(!isPinned);
+										if (!isPinned) {
+											heightControls.start({ height: "300px" });
+										} else {
+											heightControls.start({ height: "150px" });
+										}
+									}}
 								>
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-pin"><line x1="12" x2="12" y1="17" y2="22" /><path d="M5 17h14v-1.76a2 2 0 0 0-1.11-1.79l-1.78-.9A2 2 0 0 1 15 10.76V6h1a2 2 0 0 0 0-4H8a2 2 0 0 0 0 4h1v4.76a2 2 0 0 1-1.11 1.79l-1.78.9A2 2 0 0 0 5 15.24Z" /></svg>
 								</button>
