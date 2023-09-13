@@ -54,20 +54,20 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 	const debouncedTokenCalculation = useCallback(debounce((newText: string) => {
 		const tokens = encoding.encode(newText);
 		setTokenCount(tokens.length);
-	}, 300), []);	
+	}, 300), []);
 
 	const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		let newText = e.target.value;
-	
+
 		if (newText.length > 2000) {
-		  newText = newText.slice(0, 2000);
+			newText = newText.slice(0, 2000);
 		}
-	
+
 		setTextValue(newText);
 		setCharCount(newText.length);
-	
+
 		debouncedTokenCalculation(newText);
-	  };
+	};
 
 	return (
 		<motion.div
@@ -109,6 +109,7 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 							}}
 							onBlur={() => {
 								isFocused.current = false;
+
 								if (!isHovering.current && !isPinned) {
 									borderRadiusControls.start({ borderRadius: "20px" });
 									heightControls.start({ height: "auto" });
