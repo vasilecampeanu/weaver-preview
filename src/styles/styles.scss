@@ -36,6 +36,38 @@
 					align-items: end;
 					justify-content: end;
 					justify-self: end;
+
+					.ow-new-chat
+					{
+						all: unset;
+						display: grid;
+						align-self: end !important;
+						height: 36px;
+						width: 36px;
+						border-radius: 50%;
+						background-color: var(--interactive-accent);
+						box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+						color: #ffffff;
+						cursor: var(--cursor);
+						transition: all .2s;
+						opacity: .75;
+
+						&:hover
+						{
+							opacity: 1;
+						}
+
+						svg
+						{
+							place-self: center;
+							width:  21px;
+							height: 21px;
+						}
+
+						grid-column: 1;
+						grid-row: 1;
+						z-index: 1;
+					}
 				}
 
 				.ow-expandable-input 
