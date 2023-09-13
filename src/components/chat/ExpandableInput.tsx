@@ -67,12 +67,16 @@ export const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, 
 			}}
 			onHoverEnd={() => {
 				isHovering.current = false;
+			
+				if (textValue.length > 0) return;
+			
 				if (!isFocused.current && !isPinned) {
 					borderRadiusControls.start({ borderRadius: "20px" });
 					heightControls.start({ height: "auto" });
 					setShowCount(false);
 				}
 			}}
+			
 			onAnimationComplete={() => {
 				if (isHovering.current) {
 					setShowCount(true);
@@ -93,13 +97,15 @@ export const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, 
 							}}
 							onBlur={() => {
 								isFocused.current = false;
-
+							
+								if (textValue.length > 0) return;
+							
 								if (!isHovering.current && !isPinned) {
 									borderRadiusControls.start({ borderRadius: "20px" });
 									heightControls.start({ height: "auto" });
 									setShowCount(false);
 								}
-							}}
+							}}							
 						/>
 						<div className="ow-user-actions">
 							<button
