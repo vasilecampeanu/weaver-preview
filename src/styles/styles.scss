@@ -61,22 +61,125 @@
 							height: 100%;
 							display: grid;
 							grid-template-rows: 1fr auto;
-
-							textarea
+							
+							.ow-textarea-inner-wrapper
 							{
-								all: unset;
-								font-size: 14px;
 								width: 100%;
 								height: 100%;
-								resize: none;
-								white-space: pre-wrap;
-								overflow-wrap: break-word;
-								word-wrap: break-word;
+								display: grid;
+								gap: 5px;
+								grid-template-columns: 1fr auto;
+
+								textarea
+								{
+									all: unset;
+									font-size: 14px;
+									width: 100%;
+									height: 100%;
+									resize: none;
+									white-space: pre-wrap;
+									overflow-wrap: break-word;
+									word-wrap: break-word;
+								}
+
+								.ow-user-actions
+								{
+									display: flex;
+									align-items: start;
+									gap: 10px;
+
+									.ow-add-note-as-context-btn
+									{
+										all: unset;
+										cursor: var(--cursor);
+										display: grid;
+					
+										svg
+										{
+											place-self: center;
+											width: 18px;
+											height: 18px;
+											color: var(--icon-color);
+											opacity: .5;
+										}
+					
+										&:hover
+										{
+											svg
+											{
+												opacity: .75;
+											}
+										}
+									}
+
+									.ow-submit
+									{
+										all: unset;
+										cursor: var(--cursor);
+										display: grid;
+					
+										svg
+										{
+											place-self: center;
+											width: 18px;
+											height: 18px;
+											color: var(--icon-color);
+											opacity: .5;
+										}
+					
+										&:hover
+										{
+											svg
+											{
+												opacity: .75;
+											}
+										}
+									}
+								}
 							}
-	
+
 							.ow-chracters-count
 							{
-								font-size: 14px;
+								display: grid;
+								grid-template-columns: 1fr auto;
+
+								.ow-count
+								{
+									font-size: 14px;
+								}
+
+								.ow-pin-input-btn
+								{
+									all: unset;
+									cursor: var(--cursor);
+									display: grid;
+				
+									svg
+									{
+										place-self: center;
+										transform: rotate(45deg);
+										width: 18px;
+										height: 18px;
+										color: var(--icon-color);
+										opacity: .5;
+									}
+				
+									&:hover
+									{
+										svg
+										{
+											opacity: .75;
+										}
+									}
+				
+									&.pinned
+									{
+										svg
+										{
+											opacity: 1 !important;
+										}
+									}
+								}
 							}
 						}
 					}
