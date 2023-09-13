@@ -9,7 +9,7 @@ class EventEmitter {
 
 	on(eventName: string, listener: EventListener): this {
 		if (typeof listener !== 'function') {
-			throw new TypeError('The listener must be a function');
+			throw new TypeError('The listener must be a function.');
 		}
 
 		if (!this.events[eventName]) {

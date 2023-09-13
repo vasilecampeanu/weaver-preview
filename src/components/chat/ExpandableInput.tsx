@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
-import Weaver from 'main';
-import { getEncoding } from "js-tiktoken";
+import { TokenEncoder } from 'utils/TokenEncoder';
 
 interface ExpandableInputProps {
 	leftDivWidth: number;
@@ -20,7 +19,7 @@ export const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, 
 	const isHovering = useRef(false);
 	const isFocused = useRef(false);
 
-	const encoding = useMemo(() => getEncoding("cl100k_base"), []);
+	const encoder = useMemo(() => new TokenEncoder("gpt-3.5-turbo"), []);
 
 	const debounce = <T extends (...args: any[]) => any>(fn: T, delay: number): (...funcArgs: Parameters<T>) => void => {
 		let timerId: NodeJS.Timeout | null = null;
@@ -35,9 +34,9 @@ export const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, 
 		};
 	};
 
-	const debouncedTokenCalculation = useCallback(debounce((newText: string) => {
-		const tokens = encoding.encode(newText);
-		setTokenCount(tokens.length);
+	const debouncedTokenCalculation = useCallback(debounce(async (newText: string) => {
+		const tokens = await encoder.getTokenCountForText(newText);
+		setTokenCount(tokens);
 	}, 300), []);
 
 	const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
