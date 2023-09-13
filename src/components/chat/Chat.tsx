@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import Weaver from 'main';
+import { getEncoding } from "js-tiktoken";
 
 interface ChatProps {
 	plugin: Weaver;
@@ -26,6 +27,7 @@ interface ExpandableInputProps {
 const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightControls }) => {
 	const [showCount, setShowCount] = useState(false);
 	const [charCount, setCharCount] = useState(0);
+	const [tokenCount, setTokenCount] = useState(0);
 	const [textValue, setTextValue] = useState('');
 	const [isPinned, setIsPinned] = useState(false);
 
@@ -34,16 +36,38 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 	const isHovering = useRef(false);
 	const isFocused = useRef(false);
 
+	const encoding = useMemo(() => getEncoding("cl100k_base"), []);
+
+	const debounce = <T extends (...args: any[]) => any>(fn: T, delay: number): (...funcArgs: Parameters<T>) => void => {
+		let timerId: NodeJS.Timeout | null = null;
+		return (...args: Parameters<T>) => {
+			if (timerId) {
+				clearTimeout(timerId);
+			}
+			timerId = setTimeout(() => {
+				fn(...args);
+				timerId = null;
+			}, delay);
+		};
+	};
+
+	const debouncedTokenCalculation = useCallback(debounce((newText: string) => {
+		const tokens = encoding.encode(newText);
+		setTokenCount(tokens.length);
+	}, 300), []);	
+
 	const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		let newText = e.target.value;
-
+	
 		if (newText.length > 2000) {
-			newText = newText.slice(0, 2000);
+		  newText = newText.slice(0, 2000);
 		}
-
+	
 		setTextValue(newText);
 		setCharCount(newText.length);
-	};
+	
+		debouncedTokenCalculation(newText);
+	  };
 
 	return (
 		<motion.div
@@ -112,7 +136,8 @@ const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightC
 					{showCount && (
 						<div className="ow-chracters-count">
 							<div className="ow-count">
-								{charCount}/2000
+								<span className="ow-chat-count">{charCount}/2000</span>
+								<span className="ow-token-count">{tokenCount}</span>
 							</div>
 							<div className="ow-pin-input-btn">
 								<button
@@ -162,7 +187,7 @@ export const InputWrapper: React.FC = () => {
 		>
 			<div ref={leftDivRef} className="ow-input-left">
 				<button className="ow-new-chat">
-					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
 				</button>
 			</div>
 			{leftDivWidth !== null && <ExpandableInput leftDivWidth={leftDivWidth} heightControls={heightControls} />}

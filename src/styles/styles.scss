@@ -178,6 +178,26 @@
 								.ow-count
 								{
 									font-size: 14px;
+									display: flex;
+									gap: 5px;
+
+									.ow-chat-count
+									{
+										padding: 2px 5px;
+										border-radius: 5px;
+										background-color: var(--background-secondary);
+										color: var(--text-muted);
+										box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+									}
+
+									.ow-token-count
+									{
+										padding: 2px 5px;
+										border-radius: 5px;
+										background-color: hsla(120, 100%, 50%, 0.1); 
+										color: var(--text-muted);
+										box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+									}
 								}
 
 								.ow-pin-input-btn
