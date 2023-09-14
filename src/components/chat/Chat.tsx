@@ -1,6 +1,6 @@
 import React from 'react';
 import Weaver from 'main';
-import { InputWrapper } from './InputWrapper';
+import { ChatInput } from './ChatInput';
 
 interface ChatProps {
 	plugin: Weaver;
@@ -11,9 +11,7 @@ export const Chat: React.FC<ChatProps> = ({ plugin }) => {
 		<div className="ow-chat-wrapper">
 			<div className="ow-chat-header"></div>
 			<div className="ow-chat-dialogue"></div>
-			<div className="ow-chat-input">
-				<InputWrapper />
-			</div>
+			<ChatInput plugin={plugin} />
 		</div>
 	);
 }

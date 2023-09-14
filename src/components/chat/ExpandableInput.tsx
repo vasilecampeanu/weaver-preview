@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { TokenEncoder } from 'utils/TokenEncoder';
+import Weaver from 'main';
 
 interface ExpandableInputProps {
+	plugin: Weaver
 	leftDivWidth: number;
 	heightControls: any;
 }
 
-export const ExpandableInput: React.FC<ExpandableInputProps> = ({ leftDivWidth, heightControls }) => {
+export const ExpandableInput: React.FC<ExpandableInputProps> = ({plugin, leftDivWidth, heightControls }) => {
 	const [showCount, setShowCount] = useState(false);
 	const [charCount, setCharCount] = useState(0);
 	const [tokenCount, setTokenCount] = useState(0);

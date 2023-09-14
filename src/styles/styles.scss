@@ -20,6 +20,10 @@
 	
 		.ow-chat-input
 		{
+			display: grid;
+			grid-template-rows: auto 1fr;
+			gap: 5px;
+
 			.ow-input-wrapper
 			{
 				display: grid;
@@ -195,7 +199,7 @@
 									{
 										padding: 2px 5px;
 										border-radius: 5px;
-										background-color: hsla(120, 100%, 50%, 0.1); 
+										background-color: hsla(130, 91%, 78%, .4);; 
 										color: var(--text-muted);
 										box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 									}
