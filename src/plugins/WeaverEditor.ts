@@ -29,7 +29,6 @@ class WeaverEditor implements PluginValue {
 			if (from !== to) {
 				const selectedText = state.doc.sliceString(from, to);
 				eventEmitter.emit('textSelected', selectedText);
-				console.log('Selected text:', selectedText);
 			}
 
 			this.lastSelection = { from, to };
@@ -38,6 +37,7 @@ class WeaverEditor implements PluginValue {
 
 	debounce(fn: Function, delay: number) {
 		let timer: any = null;
+
 		return function (...args: any[]) {
 			const context = this;
 
