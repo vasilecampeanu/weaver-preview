@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SelectedText } from "./SelectedText";
 import Weaver from "main";
+import { InteractiveQuestions } from "./InteractiveQuestions";
 
 interface InputActionBarProps {
 	plugin: Weaver;
@@ -16,7 +17,7 @@ export const InputActionBar: React.FC<InputActionBarProps> = ({ plugin, selected
 	
 	return (
 		<div className="ow-input-action-bar">
-				{selectedText && (
+				{selectedText !== "" ? (
 					<motion.div
 						initial="hidden"
 						animate="visible"
@@ -29,6 +30,8 @@ export const InputActionBar: React.FC<InputActionBarProps> = ({ plugin, selected
 					>
 						<SelectedText plugin={plugin} selectedText={selectedText} />
 					</motion.div>
+				) : (
+					<InteractiveQuestions plugin={plugin} />
 				)}
 		</div>
 	);
