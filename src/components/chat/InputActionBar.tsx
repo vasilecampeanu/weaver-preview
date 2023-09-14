@@ -4,6 +4,7 @@ import { SelectedText } from "./SelectedText";
 import Weaver from "main";
 import { InteractiveQuestions } from "./InteractiveQuestions";
 import { TextSelectedData } from "interfaces/TextSelectedData";
+import { ContextFinder } from "./ContextFinder";
 
 interface InputActionBarProps {
 	plugin: Weaver;
@@ -32,7 +33,7 @@ export const InputActionBar: React.FC<InputActionBarProps> = ({ plugin, textSele
 					<SelectedText plugin={plugin} textSelectedData={textSelectedData} />
 				</motion.div>
 			) : (
-				<InteractiveQuestions plugin={plugin} />
+				<ContextFinder plugin={plugin} />
 			)}
 		</div>
 	);
