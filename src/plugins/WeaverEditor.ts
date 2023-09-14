@@ -28,7 +28,12 @@ class WeaverEditor implements PluginValue {
 		if (!this.lastSelection || this.lastSelection.from !== from || this.lastSelection.to !== to) {
 			if (from !== to) {
 				const selectedText = state.doc.sliceString(from, to);
-				eventEmitter.emit('textSelected', selectedText);
+				const sourceFile = this.plugin.app.workspace.getActiveFile();
+
+				eventEmitter.emit('textSelected', {
+					text: selectedText,
+					file: sourceFile
+				});
 			}
 
 			this.lastSelection = { from, to };
