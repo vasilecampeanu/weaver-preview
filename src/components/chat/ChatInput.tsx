@@ -11,6 +11,7 @@ interface ChatInputProps {
 
 export const ChatInput: React.FC<ChatInputProps> = ({ plugin }) => {
 	const [textSelectedData, setTextSelectedData] = useState<TextSelectedData>();
+	const [showContextFinder, setShowContextFinder] = useState(false);
 
 	useEffect(() => {
 		const handleTextSelected = (data: TextSelectedData) => {
@@ -26,8 +27,8 @@ export const ChatInput: React.FC<ChatInputProps> = ({ plugin }) => {
 
 	return (
 		<div className="ow-chat-input">
-			<InputActionBar plugin={plugin} textSelectedData={textSelectedData} />
-			<InputWrapper plugin={plugin} />
+			<InputActionBar plugin={plugin} textSelectedData={textSelectedData} showContextFinder={showContextFinder} />
+			<InputWrapper plugin={plugin} setShowContextFinder={setShowContextFinder} />
 		</div>
 	);
 }

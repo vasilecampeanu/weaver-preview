@@ -4,10 +4,11 @@ import { ExpandableInput } from './ExpandableInput';
 import Weaver from 'main';
 
 interface InputWrapper {
-	plugin: Weaver
+	plugin: Weaver,
+	setShowContextFinder: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const InputWrapper: React.FC<InputWrapper> = ({plugin}) => {
+export const InputWrapper: React.FC<InputWrapper> = ({ plugin, setShowContextFinder }) => {
 	const [leftDivWidth, setLeftDivWidth] = useState<number | null>(null);
 	const leftDivRef = useRef<HTMLDivElement | null>(null);
 
@@ -35,7 +36,7 @@ export const InputWrapper: React.FC<InputWrapper> = ({plugin}) => {
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-plus"><path d="M5 12h14" /><path d="M12 5v14" /></svg>
 				</button>
 			</div>
-			{leftDivWidth !== null && <ExpandableInput plugin={plugin} leftDivWidth={leftDivWidth} heightControls={heightControls} />}
+			{leftDivWidth !== null && <ExpandableInput plugin={plugin} leftDivWidth={leftDivWidth} heightControls={heightControls} setShowContextFinder={setShowContextFinder} />}
 		</motion.div>
 	);
 };

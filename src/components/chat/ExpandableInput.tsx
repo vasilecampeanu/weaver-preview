@@ -4,12 +4,13 @@ import { TokenEncoder } from 'utils/TokenEncoder';
 import Weaver from 'main';
 
 interface ExpandableInputProps {
-	plugin: Weaver
-	leftDivWidth: number;
-	heightControls: any;
+	plugin: Weaver,
+	leftDivWidth: number,
+	heightControls: any,
+	setShowContextFinder: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const ExpandableInput: React.FC<ExpandableInputProps> = ({plugin, leftDivWidth, heightControls }) => {
+export const ExpandableInput: React.FC<ExpandableInputProps> = ({plugin, leftDivWidth, heightControls, setShowContextFinder }) => {
 	const [showCount, setShowCount] = useState(false);
 	const [charCount, setCharCount] = useState(0);
 	const [tokenCount, setTokenCount] = useState(0);
@@ -110,6 +111,7 @@ export const ExpandableInput: React.FC<ExpandableInputProps> = ({plugin, leftDiv
 						<div className="ow-user-actions">
 							<button
 								className="ow-add-note-as-context-btn"
+								onClick={() => setShowContextFinder(prevState => !prevState)}
 							>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-file-plus"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" /><polyline points="14 2 14 8 20 8" /><line x1="12" x2="12" y1="18" y2="12" /><line x1="9" x2="15" y1="15" y2="15" /></svg>
 							</button>
