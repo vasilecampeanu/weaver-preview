@@ -1,4 +1,4 @@
-import { Chat } from 'components/chat/Chat';
+import { TabsManager } from 'components/TabsManager';
 import Weaver from 'main';
 import { ItemView, WorkspaceLeaf } from 'obsidian';
 import React from 'react';
@@ -62,7 +62,7 @@ export class WeaverThreadView extends ItemView {
 	private appendWeaver(viewContent: HTMLElement) {
 		this.root = createRoot(viewContent);
 		this.root.render(
-			<Chat plugin={this.plugin} />
+			<TabsManager plugin={this.plugin} />
 		);
 	}
 }
