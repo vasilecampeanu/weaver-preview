@@ -10,7 +10,7 @@ interface ThreadHeaderProps {
 
 export const ThreadHeader: React.FC<ThreadHeaderProps> = ({ plugin, handleTabSwitcher }) => {
 	return(
-		<div className="ow-thread">
+		<div className="ow-thread-header">
 			<div className="ow-title">
 				THREAD-VIEW
 			</div>

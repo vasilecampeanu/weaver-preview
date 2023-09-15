@@ -10,7 +10,7 @@ interface ChatProps {
 
 export const Chat: React.FC<ChatProps> = ({ plugin, handleTabSwitcher }) => {
 	return (
-		<div className="ow-chat-wrapper">
+		<div className="ow-chat">
 			<div className="ow-chat-header">
 				<button
 					onClick={() => {handleTabSwitcher('THREAD')}}

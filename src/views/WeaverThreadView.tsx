@@ -52,7 +52,7 @@ export class WeaverThreadView extends ItemView {
 		) as HTMLElement;
 
 		if (viewContent) {
-			viewContent.classList.add('ow-thread');
+			viewContent.classList.add('ow-view');
 			this.appendWeaver(viewContent);
 		} else {
 			console.error('Could not find view content!');
