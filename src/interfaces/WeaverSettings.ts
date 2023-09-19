@@ -1,1 +1,3 @@
-export interface WeaverSettings {}
+export interface WeaverSettings {
+	weaverFolderPath: string,
+}

@@ -3,7 +3,9 @@ import Weaver from 'main';
 
 import { WeaverSettings } from 'interfaces/WeaverSettings';
 
-export const DEFAULT_SETTINGS: WeaverSettings = {}
+export const DEFAULT_SETTINGS: WeaverSettings = {
+	weaverFolderPath: "bins/weaver",
+}
 
 export class SampleSettingTab extends PluginSettingTab {
 	private readonly plugin: Weaver;

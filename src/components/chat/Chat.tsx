@@ -2,9 +2,11 @@ import React from 'react';
 import Weaver from 'main';
 import { ChatInput } from './ChatInput';
 import { TabId } from 'types/GeneralTypes';
+import { ConversationManager } from 'utils/ConversationManager';
 
 interface ChatProps {
 	plugin: Weaver,
+	conversationManager: ConversationManager,
 	handleTabSwitcher: (tabId: TabId) => void
 }
 
